@@ -11,11 +11,11 @@ import com.sample.android.todox.stores.items.Item
 private class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val titleTV: TextView by lazy {
-        itemView.findViewById(R.id.itemTitleTV) as TextView
+        itemView.findViewById<TextView>(R.id.itemTitleTV)
     }
 
     val descriptionTV: TextView by lazy {
-        itemView.findViewById(R.id.itemDescriptionTV) as TextView
+        itemView.findViewById<TextView>(R.id.itemDescriptionTV)
     }
 
     fun bind(item: Item) {
