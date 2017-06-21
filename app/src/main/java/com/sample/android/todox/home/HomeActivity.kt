@@ -6,12 +6,13 @@ import android.view.View
 import android.widget.Toast
 import com.sample.android.todox.R
 import com.sample.android.todox.common.BaseActivity
+import com.sample.android.todox.stores.items.Item
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : BaseActivity(), HomeView {
+class HomeActivity : BaseActivity(), HomeView, ItemsAdapter.OnItemClicked {
 
     val itemsAdapter by lazy {
-        ItemsAdapter(arrayListOf())
+        ItemsAdapter(arrayListOf(), this)
     }
 
     val layoutManager by lazy {
@@ -19,7 +20,9 @@ class HomeActivity : BaseActivity(), HomeView {
     }
 
     val homePresenter: HomePresenter by lazy {
-        HomePresenter(injector().provideGetItemsReducer())
+        HomePresenter(injector().provideGetItemsReducer(),
+                injector().provideDeleteItemReducer(),
+                injector().provideAddItemReducer())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +32,8 @@ class HomeActivity : BaseActivity(), HomeView {
         homePresenter.attachView(this)
 
         setupRecyclerView()
+
+        button2.setOnClickListener { homePresenter.addItem(0, Item(-1, "Title", "Description")) }
 
         homePresenter.onGetItems()
     }
@@ -59,5 +64,17 @@ class HomeActivity : BaseActivity(), HomeView {
     override fun showErrorMessage(errorMessage: String?) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG)
                 .show()
+    }
+
+    override fun onItemClicked(position: Int, item: Item) {
+        homePresenter.deleteItem(position, item)
+    }
+
+    override fun deleteItem(position: Int) {
+        itemsAdapter.deleteItem(position)
+    }
+
+    override fun addItem(position: Int, item: Item) {
+        itemsAdapter.addItem(position, item)
     }
 }

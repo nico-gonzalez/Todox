@@ -30,6 +30,9 @@ dependencies {
     implementation deps.support.constraintLayout
     implementation deps.rxAndroid
     implementation deps.rxJava
+    implementation deps.arch.room
+    implementation deps.arch.roomRxJava
+    kapt deps.arch.roomAnnotationProcessor
 
     androidTestImplementation(deps.support.espressoCore, {
         exclude group: 'com.android.support', module: 'support-annotations'

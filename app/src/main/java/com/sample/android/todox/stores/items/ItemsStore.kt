@@ -1,34 +1,48 @@
 package items
 
+import com.sample.android.todox.common.UIEvent
+import com.sample.android.todox.home.AddItemUIEvent
+import com.sample.android.todox.home.DeleteItemUIEvent
+import com.sample.android.todox.home.GetItemsUIEvent
+import com.sample.android.todox.model.items.ItemDao
+import com.sample.android.todox.model.items.ItemModel
 import com.sample.android.todox.stores.Store
 import com.sample.android.todox.stores.items.Item
-import io.reactivex.Observable
-import java.util.concurrent.TimeUnit
+import io.reactivex.Flowable
 
-class ItemsStore : Store<MutableList<Item>> {
+class ItemsStore(val itemDao: ItemDao) : Store<List<Item>> {
 
-    private var items: Observable<MutableList<Item>>? = null
-
-    override fun getState(): Observable<MutableList<Item>> {
-        items = Observable.just(mutableListOf(Item(1, "test1", "This is item 1"),
-                Item(2, "test2", "This is item 2"),
-                Item(3, "test3", "This is item 3"),
-                Item(4, "test4", "This is item 4"),
-                Item(5, "test5", "This is item 5"),
-                Item(6, "test6", "This is item 6"),
-                Item(7, "test7", "This is item 7"),
-                Item(8, "test8", "This is item 8"),
-                Item(9, "test9", "This is item 9"),
-                Item(10, "test10", "This is item 10"),
-                Item(11, "test11", "This is item 11"),
-                Item(12, "test12", "This is item 12"),
-                Item(13, "test13", "This is item 13"),
-                Item(14, "test14", "This is item 14"),
-                Item(15, "test15", "This is item 15")
-        ))
-                .delay(1, TimeUnit.SECONDS)
-                .cache()
-
-        return items as Observable<MutableList<Item>>
+    override fun getState(): Flowable<List<Item>> {
+        return getItems()
     }
+
+    override fun dispatch(event: UIEvent): Flowable<List<Item>> = when (event) {
+        is GetItemsUIEvent -> getItems()
+        is DeleteItemUIEvent -> deleteItem(event.item)
+        is AddItemUIEvent -> addItem(event.item)
+        else -> Flowable.error(IllegalStateException("Invalid UIEvent"))
+    }
+
+    private fun addItem(item: Item): Flowable<List<Item>> = Flowable.just(item)
+            .map { ItemModel(it.id, it.title, it.description) }
+            .concatMap { Flowable.fromCallable { itemDao.insert(it) } }
+            .concatMap { getItems() }
+
+    private fun deleteItem(item: Item): Flowable<List<Item>> = Flowable.just(item)
+            .map { (id, title, description) -> ItemModel(id, title, description) }
+            .concatMap {
+                Flowable.fromCallable { itemDao.delete(it) }
+                        .flatMap { _ -> itemDao.getAll().take(1) }
+                        .flatMapIterable { it -> it }
+                        .map { Item(it.id, it.title, it.description) }
+                        .toList()
+                        .toFlowable()
+            }
+
+    private fun getItems(): Flowable<List<Item>> = itemDao.getAll().take(1)
+            .flatMapIterable { it -> it }
+            .map { Item(id = it.id, title = it.title, description = it.description) }
+            .toList()
+            .toFlowable()
+
 }

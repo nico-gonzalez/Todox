@@ -5,7 +5,7 @@ import com.sample.android.todox.stores.items.Item
 data class GetItemsResult(val inProgress: Boolean = false,
                           val errorMessage: String? = null,
                           val success: Boolean = false,
-                          val items: MutableList<Item> = arrayListOf()) {
+                          val items: List<Item> = arrayListOf()) {
 
     companion object Factory {
         fun progress(): GetItemsResult {
@@ -16,7 +16,7 @@ data class GetItemsResult(val inProgress: Boolean = false,
             return GetItemsResult(inProgress = false, errorMessage = errorMessage, success = false)
         }
 
-        fun success(items: MutableList<Item>): GetItemsResult {
+        fun success(items: List<Item>): GetItemsResult {
             return GetItemsResult(inProgress = false, items = items, success = true)
         }
     }

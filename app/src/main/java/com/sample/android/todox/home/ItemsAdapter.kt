@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.sample.android.todox.R
 import com.sample.android.todox.stores.items.Item
 
-private class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+private class ItemViewHolder(itemView: View, val clickListener: ItemsAdapter.OnItemClicked) : RecyclerView.ViewHolder(itemView) {
 
     val titleTV: TextView by lazy {
         itemView.findViewById<TextView>(R.id.itemTitleTV)
@@ -21,11 +21,17 @@ private class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     fun bind(item: Item) {
         titleTV.text = item.title
         descriptionTV.text = item.description
-    }
 
+        itemView.setOnClickListener { clickListener.onItemClicked(adapterPosition, item) }
+    }
 }
 
-class ItemsAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ItemsAdapter(val items: MutableList<Item>, val clickListener: OnItemClicked)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    interface OnItemClicked {
+        fun onItemClicked(position: Int, item: Item)
+    }
 
     override fun getItemCount(): Int {
         return items.size
@@ -41,13 +47,23 @@ class ItemsAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<Recycler
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.items_list_item, parent, false)
-        return ItemViewHolder(view)
+        return ItemViewHolder(view, clickListener)
     }
 
-    fun addItems(items: MutableList<Item>) {
+    fun addItems(items: List<Item>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
+    }
+
+    fun deleteItem(position: Int) {
+        items.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun addItem(position: Int, item: Item) {
+        items.add(item)
+        notifyItemInserted(position)
     }
 
 }

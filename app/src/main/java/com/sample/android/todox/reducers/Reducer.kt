@@ -1,8 +1,8 @@
 package com.sample.android.todox.reducers
 
-import io.reactivex.Observable
+import io.reactivex.Flowable
 
-interface Reducer<A, R> {
+interface Reducer<in A, R> {
 
-    fun reduce(action: A) : Observable<R>
+    fun reduce(action: A) : Flowable<R>
 }
