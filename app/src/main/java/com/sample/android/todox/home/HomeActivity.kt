@@ -7,7 +7,9 @@ import android.widget.Toast
 import com.sample.android.todox.R
 import com.sample.android.todox.common.BaseActivity
 import com.sample.android.todox.stores.items.Item
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home.button2
+import kotlinx.android.synthetic.main.activity_home.itemsRV
+import kotlinx.android.synthetic.main.activity_home.progressBar
 
 class HomeActivity : BaseActivity(), HomeView, ItemsAdapter.OnItemClicked {
 
@@ -33,7 +35,9 @@ class HomeActivity : BaseActivity(), HomeView, ItemsAdapter.OnItemClicked {
 
     setupRecyclerView()
 
-    button2.setOnClickListener { homePresenter.addItem(0, Item(-1, "Title", "Description")) }
+    button2.setOnClickListener {
+      homePresenter.addItem(0, Item(title = "Title", description = "Description"))
+    }
 
     homePresenter.onGetItems()
   }
