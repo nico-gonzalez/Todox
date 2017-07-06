@@ -5,7 +5,7 @@ import io.reactivex.Flowable
 
 interface Store<T> {
 
-    fun getState(): Flowable<T>
+  fun getState(): Flowable<T>
 
-    fun dispatch(event: UIEvent): Flowable<T>
+  fun dispatch(event: UIEvent): Flowable<T>
 }

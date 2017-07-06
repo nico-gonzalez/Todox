@@ -5,24 +5,24 @@ import io.reactivex.disposables.Disposable
 
 abstract class Presenter<T> {
 
-    protected val disposables: CompositeDisposable = CompositeDisposable()
+  protected val disposables: CompositeDisposable = CompositeDisposable()
 
-    private var view: T? = null
+  private var view: T? = null
 
-    open fun attachView(view: T) {
-        this.view = view
-    }
+  open fun attachView(view: T) {
+    this.view = view
+  }
 
-    open fun detachView() {
-        view = null
-        disposables.clear()
-    }
+  open fun detachView() {
+    view = null
+    disposables.clear()
+  }
 
-    protected fun getView() : T? {
-        return view
-    }
+  protected fun getView(): T? {
+    return view
+  }
 
-    protected fun addDisposable(disposable: Disposable) {
-        disposables.add(disposable)
-    }
+  protected fun addDisposable(disposable: Disposable) {
+    disposables.add(disposable)
+  }
 }

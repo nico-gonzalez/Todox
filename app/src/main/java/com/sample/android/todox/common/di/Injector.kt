@@ -10,17 +10,17 @@ import items.ItemsStore
 
 interface Injector {
 
-    fun provideSchedulerProvider(): SchedulerProvider
+  fun provideSchedulerProvider(): SchedulerProvider
 
-    fun provideItemsStore(): ItemsStore
+  fun provideItemsStore(): ItemsStore
 
-    fun provideGetItemsReducer(): GetItemsReducer
+  fun provideGetItemsReducer(): GetItemsReducer
 
-    fun provideDeleteItemReducer(): DeleteItemReducer
+  fun provideDeleteItemReducer(): DeleteItemReducer
 
-    fun provideItemDao(): ItemDao
+  fun provideItemDao(): ItemDao
 
-    fun provideDatabase(): RoomDatabase
+  fun provideDatabase(): RoomDatabase
 
-    fun provideAddItemReducer(): AddItemReducer
+  fun provideAddItemReducer(): AddItemReducer
 }

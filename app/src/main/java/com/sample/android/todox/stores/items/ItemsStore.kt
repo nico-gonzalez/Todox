@@ -12,37 +12,37 @@ import io.reactivex.Flowable
 
 class ItemsStore(val itemDao: ItemDao) : Store<List<Item>> {
 
-    override fun getState(): Flowable<List<Item>> {
-        return getItems()
-    }
+  override fun getState(): Flowable<List<Item>> {
+    return getItems()
+  }
 
-    override fun dispatch(event: UIEvent): Flowable<List<Item>> = when (event) {
-        is GetItemsUIEvent -> getItems()
-        is DeleteItemUIEvent -> deleteItem(event.item)
-        is AddItemUIEvent -> addItem(event.item)
-        else -> Flowable.error(IllegalStateException("Invalid UIEvent"))
-    }
+  override fun dispatch(event: UIEvent): Flowable<List<Item>> = when (event) {
+    is GetItemsUIEvent -> getItems()
+    is DeleteItemUIEvent -> deleteItem(event.item)
+    is AddItemUIEvent -> addItem(event.item)
+    else -> Flowable.error(IllegalStateException("Invalid UIEvent"))
+  }
 
-    private fun addItem(item: Item): Flowable<List<Item>> = Flowable.just(item)
-            .map { ItemModel(it.id, it.title, it.description) }
-            .concatMap { Flowable.fromCallable { itemDao.insert(it) } }
-            .concatMap { getItems() }
+  private fun addItem(item: Item): Flowable<List<Item>> = Flowable.just(item)
+      .map { ItemModel(it.id, it.title, it.description) }
+      .concatMap { Flowable.fromCallable { itemDao.insert(it) } }
+      .concatMap { getItems() }
 
-    private fun deleteItem(item: Item): Flowable<List<Item>> = Flowable.just(item)
-            .map { (id, title, description) -> ItemModel(id, title, description) }
-            .concatMap {
-                Flowable.fromCallable { itemDao.delete(it) }
-                        .flatMap { _ -> itemDao.getAll().take(1) }
-                        .flatMapIterable { it -> it }
-                        .map { Item(it.id, it.title, it.description) }
-                        .toList()
-                        .toFlowable()
-            }
-
-    private fun getItems(): Flowable<List<Item>> = itemDao.getAll().take(1)
+  private fun deleteItem(item: Item): Flowable<List<Item>> = Flowable.just(item)
+      .map { (id, title, description) -> ItemModel(id, title, description) }
+      .concatMap {
+        Flowable.fromCallable { itemDao.delete(it) }
+            .flatMap { _ -> itemDao.getAll().take(1) }
             .flatMapIterable { it -> it }
-            .map { Item(id = it.id, title = it.title, description = it.description) }
+            .map { Item(it.id, it.title, it.description) }
             .toList()
             .toFlowable()
+      }
+
+  private fun getItems(): Flowable<List<Item>> = itemDao.getAll().take(1)
+      .flatMapIterable { it -> it }
+      .map { Item(id = it.id, title = it.title, description = it.description) }
+      .toList()
+      .toFlowable()
 
 }

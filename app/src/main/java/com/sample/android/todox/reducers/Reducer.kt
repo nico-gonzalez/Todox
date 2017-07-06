@@ -4,5 +4,5 @@ import io.reactivex.Flowable
 
 interface Reducer<in A, R> {
 
-    fun reduce(action: A) : Flowable<R>
+  fun reduce(action: A): Flowable<R>
 }

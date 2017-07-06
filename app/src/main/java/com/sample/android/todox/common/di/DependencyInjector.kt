@@ -14,59 +14,59 @@ import items.ItemsStore
 
 class DependencyInjector(val context: Context) : Injector {
 
-    private var itemsStore: ItemsStore? = null
+  private var itemsStore: ItemsStore? = null
 
-    private var itemsReducer: GetItemsReducer? = null
+  private var itemsReducer: GetItemsReducer? = null
 
-    private var deleteItemReducer: DeleteItemReducer? = null
+  private var deleteItemReducer: DeleteItemReducer? = null
 
-    private var addItemReducer: AddItemReducer? = null
+  private var addItemReducer: AddItemReducer? = null
 
-    private var roomDatabase: RoomDatabase? = null
+  private var roomDatabase: RoomDatabase? = null
 
-    override fun provideItemDao(): ItemDao {
-        return provideDatabase()
-                .itemDao()
+  override fun provideItemDao(): ItemDao {
+    return provideDatabase()
+        .itemDao()
+  }
+
+  override fun provideDatabase(): Database {
+    if (roomDatabase == null) {
+      roomDatabase = Room.databaseBuilder(context, Database::class.java, "todox")
+          .build()
+    }
+    return roomDatabase as Database
+  }
+
+  override fun provideSchedulerProvider(): SchedulerProvider = RxJavaSchedulerProvider()
+
+  override fun provideItemsStore(): ItemsStore {
+    if (itemsStore == null) {
+      itemsStore = ItemsStore(provideItemDao())
+    }
+    return itemsStore as ItemsStore
+  }
+
+  override fun provideGetItemsReducer(): GetItemsReducer {
+    if (itemsReducer == null) {
+      itemsReducer = GetItemsReducer(provideSchedulerProvider(),
+          provideItemsStore())
+    }
+    return itemsReducer as GetItemsReducer
+  }
+
+  override fun provideDeleteItemReducer(): DeleteItemReducer {
+    if (deleteItemReducer == null) {
+      deleteItemReducer = DeleteItemReducer(provideSchedulerProvider(), provideItemsStore())
     }
 
-    override fun provideDatabase(): Database {
-        if (roomDatabase == null) {
-            roomDatabase = Room.databaseBuilder(context, Database::class.java, "todox")
-                    .build()
-        }
-        return roomDatabase as Database
+    return deleteItemReducer as DeleteItemReducer
+  }
+
+  override fun provideAddItemReducer(): AddItemReducer {
+    if (addItemReducer == null) {
+      addItemReducer = AddItemReducer(provideSchedulerProvider(), provideItemsStore())
     }
 
-    override fun provideSchedulerProvider(): SchedulerProvider = RxJavaSchedulerProvider()
-
-    override fun provideItemsStore(): ItemsStore {
-        if (itemsStore == null) {
-            itemsStore = ItemsStore(provideItemDao())
-        }
-        return itemsStore as ItemsStore
-    }
-
-    override fun provideGetItemsReducer(): GetItemsReducer {
-        if (itemsReducer == null) {
-            itemsReducer = GetItemsReducer(provideSchedulerProvider(),
-                    provideItemsStore())
-        }
-        return itemsReducer as GetItemsReducer
-    }
-
-    override fun provideDeleteItemReducer(): DeleteItemReducer {
-        if (deleteItemReducer == null) {
-            deleteItemReducer = DeleteItemReducer(provideSchedulerProvider(), provideItemsStore())
-        }
-
-        return deleteItemReducer as DeleteItemReducer
-    }
-
-    override fun provideAddItemReducer(): AddItemReducer {
-        if (addItemReducer == null) {
-            addItemReducer = AddItemReducer(provideSchedulerProvider(), provideItemsStore())
-        }
-
-        return addItemReducer as AddItemReducer
-    }
+    return addItemReducer as AddItemReducer
+  }
 }

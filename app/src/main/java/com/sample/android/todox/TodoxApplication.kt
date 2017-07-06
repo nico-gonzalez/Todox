@@ -6,13 +6,13 @@ import com.sample.android.todox.common.di.Injector
 
 class TodoxApplication : Application() {
 
-    private var injector : Injector? = null
+  private var injector: Injector? = null
 
-    fun injector() : Injector?  {
-        if (injector == null) {
-            injector = DependencyInjector(this)
-        }
-
-        return injector
+  fun injector(): Injector? {
+    if (injector == null) {
+      injector = DependencyInjector(this)
     }
+
+    return injector
+  }
 }

@@ -20,59 +20,59 @@ class AddItemUIEvent(val position: Int, val item: Item) : UIEvent
 class GetItemsUIModel(val items: List<Item>) : UIModel
 
 class HomePresenter(val getItemsReducer: GetItemsReducer,
-                    val deleteItemReducer: DeleteItemReducer,
-                    val addItemReducer: AddItemReducer) : Presenter<HomeView>() {
+    val deleteItemReducer: DeleteItemReducer,
+    val addItemReducer: AddItemReducer) : Presenter<HomeView>() {
 
-    fun onGetItems() {
+  fun onGetItems() {
 
-        fun handleGetItemsResult(result: GetItemsResult) {
-            when {
-                result.inProgress -> getView()?.showProgress()
-                else -> {
-                    getView()?.hideProgress()
-                    when {
-                        !result.success -> getView()?.showErrorMessage(result.errorMessage)
-                        else -> getView()?.showItems(GetItemsUIModel(items = result.items))
-                    }
-                }
-            }
+    fun handleGetItemsResult(result: GetItemsResult) {
+      when {
+        result.inProgress -> getView()?.showProgress()
+        else -> {
+          getView()?.hideProgress()
+          when {
+            !result.success -> getView()?.showErrorMessage(result.errorMessage)
+            else -> getView()?.showItems(GetItemsUIModel(items = result.items))
+          }
         }
-
-        addDisposable(getItemsReducer.reduce(GetItemsUIEvent())
-                .subscribe(::handleGetItemsResult)
-        )
+      }
     }
 
-    fun deleteItem(position: Int, item: Item) {
+    addDisposable(getItemsReducer.reduce(GetItemsUIEvent())
+        .subscribe(::handleGetItemsResult)
+    )
+  }
 
-        fun handleDeleteItemResult(result: DeleteItemResult) {
-            when {
-                result.inProgress -> getView()?.deleteItem(result.position)
-                else -> when {
-                    !result.success -> getView()?.showErrorMessage(result.errorMessage)
-                }
-            }
+  fun deleteItem(position: Int, item: Item) {
+
+    fun handleDeleteItemResult(result: DeleteItemResult) {
+      when {
+        result.inProgress -> getView()?.deleteItem(result.position)
+        else -> when {
+          !result.success -> getView()?.showErrorMessage(result.errorMessage)
         }
-
-        addDisposable(
-                deleteItemReducer.reduce(DeleteItemUIEvent(position, item))
-                        .subscribe(::handleDeleteItemResult)
-        )
+      }
     }
 
-    fun addItem(position: Int, item: Item) {
-        fun handleAddItemResult(result: AddItemResult) {
-            when {
-                result.inProgress -> getView()?.addItem(result.position, item)
-                else -> when {
-                    !result.success -> getView()?.showErrorMessage(result.errorMessage)
-                }
-            }
-        }
+    addDisposable(
+        deleteItemReducer.reduce(DeleteItemUIEvent(position, item))
+            .subscribe(::handleDeleteItemResult)
+    )
+  }
 
-        addDisposable(
-                addItemReducer.reduce(AddItemUIEvent(position, item))
-                        .subscribe(::handleAddItemResult)
-        )
+  fun addItem(position: Int, item: Item) {
+    fun handleAddItemResult(result: AddItemResult) {
+      when {
+        result.inProgress -> getView()?.addItem(result.position, item)
+        else -> when {
+          !result.success -> getView()?.showErrorMessage(result.errorMessage)
+        }
+      }
     }
+
+    addDisposable(
+        addItemReducer.reduce(AddItemUIEvent(position, item))
+            .subscribe(::handleAddItemResult)
+    )
+  }
 }
