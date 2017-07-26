@@ -28,6 +28,7 @@ dependencies {
   implementation deps.support.appcompat
   implementation deps.support.recyclerview
   implementation deps.support.constraintLayout
+  implementation deps.support.design
   implementation deps.rxAndroid
   implementation deps.rxJava
   implementation deps.arch.room
