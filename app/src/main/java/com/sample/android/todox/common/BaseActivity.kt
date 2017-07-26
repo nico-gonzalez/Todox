@@ -6,11 +6,11 @@ import com.sample.android.todox.common.di.Injector
 
 open class BaseActivity : AppCompatActivity() {
 
-    fun application() : TodoxApplication {
-        return applicationContext as TodoxApplication
-    }
+  fun application(): TodoxApplication {
+    return applicationContext as TodoxApplication
+  }
 
-    fun injector() : Injector {
-        return application().injector()!!
-    }
+  fun injector(): Injector {
+    return application().injector()!!
+  }
 }

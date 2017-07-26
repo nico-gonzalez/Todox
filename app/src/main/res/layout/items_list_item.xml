@@ -4,22 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:padding="@dimen/padding"
     android:clickable="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/padding"
+    >
 
-    <TextView
-        android:id="@+id/itemTitleTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        tools:text="Item 1" />
+  <TextView
+      android:id="@+id/itemTitleTV"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+      tools:text="Item 1"
+      />
 
-    <TextView
-        android:id="@+id/itemDescriptionTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        tools:text="Item 1 description" />
+  <TextView
+      android:id="@+id/itemDescriptionTV"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+      tools:text="Item 1 description"
+      />
 
 </LinearLayout>

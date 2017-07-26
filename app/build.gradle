@@ -3,36 +3,40 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
-    defaultConfig {
-        applicationId "com.sample.android.todox"
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.compileSdk
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  compileSdkVersion versions.compileSdk
+  buildToolsVersion versions.buildTools
+  defaultConfig {
+    applicationId "com.sample.android.todox"
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.compileSdk
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+  }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation deps.kotlin
-    implementation deps.support.appcompat
-    implementation deps.support.recyclerview
-    implementation deps.support.constraintLayout
-    implementation deps.rxAndroid
-    implementation deps.rxJava
+  implementation deps.kotlin
+  implementation deps.support.appcompat
+  implementation deps.support.recyclerview
+  implementation deps.support.constraintLayout
+  implementation deps.support.design
+  implementation deps.rxAndroid
+  implementation deps.rxJava
+  implementation deps.arch.room
+  implementation deps.arch.roomRxJava
+  kapt deps.arch.roomAnnotationProcessor
 
-    androidTestImplementation(deps.support.espressoCore, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation deps.test.junit
+  androidTestImplementation(deps.support.espressoCore, {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+  testImplementation deps.test.junit
 }
