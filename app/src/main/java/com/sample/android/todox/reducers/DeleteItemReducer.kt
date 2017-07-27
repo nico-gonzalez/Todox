@@ -15,5 +15,5 @@ class DeleteItemReducer(val schedulers: SchedulerProvider,
       .onErrorReturn { error -> DeleteItemResult.failure(error.message) }
       .subscribeOn(schedulers.io())
       .observeOn(schedulers.ui())
-      .startWith(DeleteItemResult.progress(action.position))
+      .startWith(DeleteItemResult.progress())
 }

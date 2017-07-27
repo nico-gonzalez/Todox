@@ -37,8 +37,7 @@ class HomePresenter(val getItemsReducer: GetItemsReducer,
 
     fun handleDeleteItemResult(result: DeleteItemResult) {
       when {
-        result.inProgress -> getView()?.deleteItem(result.position)
-        else -> when {
+        !result.inProgress -> when {
           !result.success -> getView()?.showErrorMessage(result.errorMessage)
         }
       }
