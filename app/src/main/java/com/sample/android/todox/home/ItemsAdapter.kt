@@ -1,5 +1,7 @@
 package com.sample.android.todox.home
 
+import android.support.v7.util.DiffUtil
+import android.support.v7.util.DiffUtil.Callback
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -52,9 +54,10 @@ class ItemsAdapter(val items: MutableList<Item>, val clickListener: OnItemClicke
   }
 
   fun addItems(items: List<Item>) {
+    val diffResult = DiffUtil.calculateDiff(DiffCallback(this.items, items))
     this.items.clear()
     this.items.addAll(items)
-    notifyDataSetChanged()
+    diffResult.dispatchUpdatesTo(this)
   }
 
   fun deleteItem(position: Int) {
@@ -67,4 +70,19 @@ class ItemsAdapter(val items: MutableList<Item>, val clickListener: OnItemClicke
     notifyItemInserted(position)
   }
 
+}
+
+class DiffCallback(val oldItems: MutableList<Item>, val newItems: List<Item>) : Callback() {
+  override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+      oldItems[oldItemPosition].id == newItems[newItemPosition].id
+
+  override fun getOldListSize(): Int = oldItems.size
+
+  override fun getNewListSize(): Int = newItems.size
+
+  override fun getChangePayload(oldItemPosition: Int,
+      newItemPosition: Int): Any? = super.getChangePayload(oldItemPosition, newItemPosition)
+
+  override fun areContentsTheSame(oldItemPosition: Int,
+      newItemPosition: Int): Boolean = oldItems[oldItemPosition] == newItems[newItemPosition]
 }
