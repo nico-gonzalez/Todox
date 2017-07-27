@@ -1,7 +1,7 @@
 package com.sample.android.todox.reducers
 
 import com.sample.android.todox.common.SchedulerProvider
-import com.sample.android.todox.home.DeleteItemUIEvent
+import com.sample.android.todox.common.UIEvent.DeleteItemUIEvent
 import com.sample.android.todox.results.DeleteItemResult
 import io.reactivex.Flowable
 import items.ItemsStore

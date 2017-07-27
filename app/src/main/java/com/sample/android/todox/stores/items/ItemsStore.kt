@@ -1,9 +1,9 @@
 package items
 
 import com.sample.android.todox.common.UIEvent
-import com.sample.android.todox.home.AddItemUIEvent
-import com.sample.android.todox.home.DeleteItemUIEvent
-import com.sample.android.todox.home.GetItemsUIEvent
+import com.sample.android.todox.common.UIEvent.AddItemUIEvent
+import com.sample.android.todox.common.UIEvent.DeleteItemUIEvent
+import com.sample.android.todox.common.UIEvent.GetItemsUIEvent
 import com.sample.android.todox.model.items.ItemDao
 import com.sample.android.todox.model.items.ItemModel
 import com.sample.android.todox.stores.Store
@@ -17,10 +17,9 @@ class ItemsStore(val itemDao: ItemDao) : Store<List<Item>> {
   }
 
   override fun dispatch(event: UIEvent): Flowable<List<Item>> = when (event) {
-    is GetItemsUIEvent -> getItems()
+    is GetItemsUIEvent -> fetchItems()
     is DeleteItemUIEvent -> deleteItem(event.item)
     is AddItemUIEvent -> addItem(event.item)
-    else -> Flowable.error(IllegalStateException("Invalid UIEvent"))
   }
 
   private fun addItem(item: Item): Flowable<List<Item>> = Flowable.just(item)

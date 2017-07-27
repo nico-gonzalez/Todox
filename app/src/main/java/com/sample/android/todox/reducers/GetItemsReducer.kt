@@ -1,7 +1,7 @@
 package com.sample.android.todox.reducers
 
 import com.sample.android.todox.common.SchedulerProvider
-import com.sample.android.todox.home.GetItemsUIEvent
+import com.sample.android.todox.common.UIEvent.GetItemsUIEvent
 import com.sample.android.todox.results.GetItemsResult
 import io.reactivex.Flowable
 import items.ItemsStore

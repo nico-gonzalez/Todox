@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.sample.android.todox.R
 import com.sample.android.todox.common.BaseActivity
+import com.sample.android.todox.common.UIModel.GetItemsUIModel
 import com.sample.android.todox.stores.items.Item
 import kotlinx.android.synthetic.main.activity_home.button2
 import kotlinx.android.synthetic.main.activity_home.itemsRV

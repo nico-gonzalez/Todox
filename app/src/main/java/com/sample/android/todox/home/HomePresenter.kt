@@ -1,23 +1,15 @@
 package com.sample.android.todox.home
 
 import com.sample.android.todox.common.Presenter
-import com.sample.android.todox.common.UIEvent
-import com.sample.android.todox.common.UIModel
-import com.sample.android.todox.reducers.AddItemReducer
+import com.sample.android.todox.common.UIEvent.DeleteItemUIEvent
+import com.sample.android.todox.common.UIEvent.GetItemsUIEvent
+import com.sample.android.todox.common.UIModel.GetItemsUIModel
 import com.sample.android.todox.reducers.DeleteItemReducer
 import com.sample.android.todox.reducers.GetItemsReducer
 import com.sample.android.todox.results.AddItemResult
 import com.sample.android.todox.results.DeleteItemResult
 import com.sample.android.todox.results.GetItemsResult
 import com.sample.android.todox.stores.items.Item
-
-class GetItemsUIEvent : UIEvent
-
-class DeleteItemUIEvent(val position: Int, val item: Item) : UIEvent
-
-class AddItemUIEvent(val position: Int, val item: Item) : UIEvent
-
-class GetItemsUIModel(val items: List<Item>) : UIModel
 
 class HomePresenter(val getItemsReducer: GetItemsReducer,
     val deleteItemReducer: DeleteItemReducer,
