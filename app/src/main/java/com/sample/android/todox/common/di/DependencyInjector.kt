@@ -10,7 +10,7 @@ import com.sample.android.todox.model.items.ItemDao
 import com.sample.android.todox.reducers.AddItemReducer
 import com.sample.android.todox.reducers.DeleteItemReducer
 import com.sample.android.todox.reducers.GetItemsReducer
-import items.ItemsStore
+import com.sample.android.todox.stores.items.ItemsStore
 
 class DependencyInjector(val context: Context) : Injector {
 

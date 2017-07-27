@@ -3,8 +3,8 @@ package com.sample.android.todox.reducers
 import com.sample.android.todox.common.SchedulerProvider
 import com.sample.android.todox.common.UIEvent.DeleteItemUIEvent
 import com.sample.android.todox.results.DeleteItemResult
+import com.sample.android.todox.stores.items.ItemsStore
 import io.reactivex.Flowable
-import items.ItemsStore
 
 class DeleteItemReducer(val schedulers: SchedulerProvider,
     val itemsStore: ItemsStore) : Reducer<DeleteItemUIEvent, DeleteItemResult> {
