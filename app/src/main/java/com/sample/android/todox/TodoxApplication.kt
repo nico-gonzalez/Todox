@@ -12,7 +12,6 @@ class TodoxApplication : Application() {
     if (injector == null) {
       injector = DependencyInjector(this)
     }
-
     return injector
   }
 }

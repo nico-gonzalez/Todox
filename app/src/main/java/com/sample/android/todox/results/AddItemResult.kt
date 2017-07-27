@@ -3,12 +3,11 @@ package com.sample.android.todox.results
 
 data class AddItemResult(val inProgress: Boolean = false,
     val errorMessage: String? = null,
-    val success: Boolean = false,
-    val position: Int = -1) {
+    val success: Boolean = false) {
 
   companion object Factory {
-    fun progress(position: Int): AddItemResult {
-      return AddItemResult(inProgress = true, position = position)
+    fun progress(): AddItemResult {
+      return AddItemResult(inProgress = true)
     }
 
     fun failure(errorMessage: String?): AddItemResult {

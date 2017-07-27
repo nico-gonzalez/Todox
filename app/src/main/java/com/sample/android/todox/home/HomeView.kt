@@ -1,5 +1,6 @@
 package com.sample.android.todox.home
 
+import com.sample.android.todox.common.UIModel.GetItemsUIModel
 import com.sample.android.todox.stores.items.Item
 
 interface HomeView {
@@ -15,4 +16,6 @@ interface HomeView {
   fun deleteItem(position: Int)
 
   fun addItem(position: Int, item: Item)
+
+  fun showAddItem()
 }

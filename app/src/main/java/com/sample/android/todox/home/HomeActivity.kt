@@ -5,9 +5,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.sample.android.todox.R
+import com.sample.android.todox.additem.AddItemBottomSheetDialogFragment
 import com.sample.android.todox.common.BaseActivity
+import com.sample.android.todox.common.UIModel.GetItemsUIModel
 import com.sample.android.todox.stores.items.Item
-import kotlinx.android.synthetic.main.activity_home.button2
+import kotlinx.android.synthetic.main.activity_home.addItemBtn
 import kotlinx.android.synthetic.main.activity_home.itemsRV
 import kotlinx.android.synthetic.main.activity_home.progressBar
 
@@ -23,8 +25,7 @@ class HomeActivity : BaseActivity(), HomeView, ItemsAdapter.OnItemClicked {
 
   val homePresenter: HomePresenter by lazy {
     HomePresenter(injector().provideGetItemsReducer(),
-        injector().provideDeleteItemReducer(),
-        injector().provideAddItemReducer())
+        injector().provideDeleteItemReducer())
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +36,8 @@ class HomeActivity : BaseActivity(), HomeView, ItemsAdapter.OnItemClicked {
 
     setupRecyclerView()
 
-    button2.setOnClickListener {
-      homePresenter.addItem(0, Item(title = "Title", description = "Description"))
+    addItemBtn.setOnClickListener {
+      homePresenter.onAddItem()
     }
 
     homePresenter.onGetItems()
@@ -80,5 +81,10 @@ class HomeActivity : BaseActivity(), HomeView, ItemsAdapter.OnItemClicked {
 
   override fun addItem(position: Int, item: Item) {
     itemsAdapter.addItem(position, item)
+  }
+
+  override fun showAddItem() {
+    val addItemBottomSheet = AddItemBottomSheetDialogFragment()
+    addItemBottomSheet.show(supportFragmentManager, addItemBottomSheet.tag)
   }
 }
