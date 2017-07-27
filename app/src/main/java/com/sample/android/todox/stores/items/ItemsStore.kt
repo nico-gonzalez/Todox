@@ -1,4 +1,4 @@
-package items
+package com.sample.android.todox.stores.items
 
 import com.sample.android.todox.common.UIEvent
 import com.sample.android.todox.common.UIEvent.AddItemUIEvent
