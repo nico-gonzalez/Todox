@@ -1,3 +1,6 @@
 <resources>
   <string name="app_name">Todox</string>
+  <string name="add_item_title">Title</string>
+  <string name="add_item_description">Description</string>
+  <string name="add_item_success">Item added successfully</string>
 </resources>

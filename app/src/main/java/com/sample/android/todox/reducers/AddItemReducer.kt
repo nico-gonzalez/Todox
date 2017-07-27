@@ -14,5 +14,5 @@ class AddItemReducer(val schedulers: SchedulerProvider,
       .onErrorReturn { error -> AddItemResult.failure(error.message) }
       .subscribeOn(schedulers.io())
       .observeOn(schedulers.ui())
-      .startWith(AddItemResult.progress(action.position))
+      .startWith(AddItemResult.progress())
 }
