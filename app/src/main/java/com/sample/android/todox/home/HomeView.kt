@@ -13,9 +13,5 @@ interface HomeView {
 
   fun showErrorMessage(errorMessage: String?)
 
-  fun deleteItem(position: Int)
-
-  fun addItem(position: Int, item: Item)
-
   fun showAddItem()
 }

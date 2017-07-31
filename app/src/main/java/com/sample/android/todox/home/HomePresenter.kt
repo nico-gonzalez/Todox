@@ -33,7 +33,7 @@ class HomePresenter(val getItemsReducer: GetItemsReducer,
     )
   }
 
-  fun deleteItem(position: Int, item: Item) {
+  fun deleteItem(item: Item) {
 
     fun handleDeleteItemResult(result: DeleteItemResult) {
       when {
@@ -44,7 +44,7 @@ class HomePresenter(val getItemsReducer: GetItemsReducer,
     }
 
     addDisposable(
-        deleteItemReducer.reduce(DeleteItemUIEvent(position, item))
+        deleteItemReducer.reduce(DeleteItemUIEvent(item))
             .subscribe(::handleDeleteItemResult)
     )
   }

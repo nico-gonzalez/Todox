@@ -72,15 +72,7 @@ class HomeActivity : BaseActivity(), HomeView, ItemsAdapter.OnItemClicked {
   }
 
   override fun onItemClicked(position: Int, item: Item) {
-    homePresenter.deleteItem(position, item)
-  }
-
-  override fun deleteItem(position: Int) {
-    itemsAdapter.deleteItem(position)
-  }
-
-  override fun addItem(position: Int, item: Item) {
-    itemsAdapter.addItem(position, item)
+    homePresenter.deleteItem(item)
   }
 
   override fun showAddItem() {
