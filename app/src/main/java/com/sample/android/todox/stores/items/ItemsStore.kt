@@ -7,48 +7,35 @@ import com.sample.android.todox.common.UIEvent.GetItemsUIEvent
 import com.sample.android.todox.model.items.ItemDao
 import com.sample.android.todox.model.items.ItemModel
 import com.sample.android.todox.stores.Store
-import io.reactivex.BackpressureStrategy.BUFFER
 import io.reactivex.Flowable
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.Observable
 
 class ItemsStore(val itemDao: ItemDao) : Store<List<Item>> {
 
-  var items: Flowable<List<Item>>? = null
+  override fun getState(): Flowable<List<Item>> = fetchItems()
 
-  var subject: BehaviorSubject<List<Item>> = BehaviorSubject.create()
-
-  override fun getState(): Flowable<List<Item>> = subject.toFlowable(BUFFER)
-      .startWith(fetchItems())
-
-  override fun dispatch(event: UIEvent): Flowable<List<Item>> = when (event) {
+  override fun dispatch(event: UIEvent) = when (event) {
     is GetItemsUIEvent -> fetchItems()
     is DeleteItemUIEvent -> deleteItem(event.item)
     is AddItemUIEvent -> addItem(event.item)
   }
 
-  private fun addItem(item: Item): Flowable<List<Item>> = Flowable.just(item)
+  private fun addItem(item: Item) = Flowable.just(item)
       .map { ItemModel(it.id, it.title, it.description) }
       .concatMap { Flowable.fromCallable { itemDao.insert(it) } }
-      .concatMap { fetchItems() }
-      .doOnNext { subject.onNext(it) }
 
-  private fun deleteItem(item: Item): Flowable<List<Item>> = Flowable.just(item)
+  private fun deleteItem(item: Item) = Flowable.just(item)
       .map { (id, title, description) -> ItemModel(id, title, description) }
       .concatMap {
         Flowable.fromCallable { itemDao.delete(it) }
-            .flatMap { _ -> itemDao.getAll().take(1) }
-            .flatMapIterable { it -> it }
-            .map { Item(it.id, it.title, it.description) }
-            .toList()
-            .toFlowable()
       }
-      .doOnNext { subject.onNext(it) }
 
   private fun fetchItems(): Flowable<List<Item>> =
-      itemDao.getAll().take(1)
-          .flatMapIterable { it -> it }
-          .map { Item(id = it.id, title = it.title, description = it.description) }
-          .toList()
-          .toFlowable()
-          .doOnNext { subject.onNext(it) }
+      itemDao.getAll()
+          .flatMap {
+            Observable.fromIterable(it)
+                .map { Item(id = it.id, title = it.title, description = it.description) }
+                .toList()
+                .toFlowable()
+          }
 }
