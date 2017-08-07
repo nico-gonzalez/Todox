@@ -5,9 +5,10 @@ import com.sample.android.todox.common.UIEvent.AddItemUIEvent
 import com.sample.android.todox.results.AddItemResult
 import com.sample.android.todox.stores.items.ItemsStore
 import io.reactivex.Flowable
+import javax.inject.Inject
 
-class AddItemReducer(val schedulers: SchedulerProvider,
-    val itemsStore: ItemsStore) : Reducer<AddItemUIEvent, AddItemResult> {
+class AddItemReducer @Inject constructor(private val schedulers: SchedulerProvider,
+    private val itemsStore: ItemsStore) : Reducer<AddItemUIEvent, AddItemResult> {
 
   override fun reduce(action: AddItemUIEvent): Flowable<AddItemResult> = itemsStore.dispatch(action)
       .map { AddItemResult.success() }

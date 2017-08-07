@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
   compileSdkVersion versions.compileSdk
@@ -12,12 +13,23 @@ android {
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
   }
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 }
 
@@ -29,11 +41,13 @@ dependencies {
   implementation deps.support.recyclerview
   implementation deps.support.constraintLayout
   implementation deps.support.design
-  implementation deps.rxAndroid
-  implementation deps.rxJava
+  implementation deps.rx.rxAndroid
+  implementation deps.rx.rxJava
+  implementation deps.di.dagger
+  kapt deps.di.daggerCompiler
   implementation deps.arch.room
   implementation deps.arch.roomRxJava
-  kapt deps.arch.roomAnnotationProcessor
+  kapt deps.arch.roomCompiler
 
   androidTestImplementation(deps.support.espressoCore, {
     exclude group: 'com.android.support', module: 'support-annotations'

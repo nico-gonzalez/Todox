@@ -59,17 +59,6 @@ class ItemsAdapter(val items: MutableList<Item>, val clickListener: OnItemClicke
     this.items.addAll(items)
     diffResult.dispatchUpdatesTo(this)
   }
-
-  fun deleteItem(position: Int) {
-    items.removeAt(position)
-    notifyItemRemoved(position)
-  }
-
-  fun addItem(position: Int, item: Item) {
-    items.add(item)
-    notifyItemInserted(position)
-  }
-
 }
 
 class DiffCallback(val oldItems: MutableList<Item>, val newItems: List<Item>) : Callback() {

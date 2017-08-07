@@ -5,8 +5,10 @@ import com.sample.android.todox.common.UIEvent.AddItemUIEvent
 import com.sample.android.todox.reducers.AddItemReducer
 import com.sample.android.todox.results.AddItemResult
 import com.sample.android.todox.stores.items.Item
+import javax.inject.Inject
 
-class AddItemPresenter(val addItemReducer: AddItemReducer) : Presenter<AddItemView>() {
+class AddItemPresenter @Inject constructor(
+    private val addItemReducer: AddItemReducer) : Presenter<AddItemView>() {
 
   fun onAddItem(title: String, description: String) {
 

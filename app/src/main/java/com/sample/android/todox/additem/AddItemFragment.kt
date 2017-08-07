@@ -1,22 +1,27 @@
 package com.sample.android.todox.additem
 
 import android.app.Dialog
+import android.content.Context
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.design.widget.CoordinatorLayout
 import android.view.View
 import android.widget.Toast
 import com.sample.android.todox.R
-import com.sample.android.todox.TodoxApplication
+import com.sample.android.todox.common.application
 import kotlinx.android.synthetic.main.fragment_add_item_bottom_sheet.view.addItemDescription
 import kotlinx.android.synthetic.main.fragment_add_item_bottom_sheet.view.addItemTitle
 import kotlinx.android.synthetic.main.fragment_add_item_bottom_sheet.view.submitAddItem
+import javax.inject.Inject
 
-class AddItemBottomSheetDialogFragment : BottomSheetDialogFragment(), AddItemView {
+class AddItemFragment : BottomSheetDialogFragment(), AddItemView {
 
-  val addItemPresenter: AddItemPresenter by lazy {
-    AddItemPresenter(
-        (context.applicationContext as? TodoxApplication)?.injector()!!.provideAddItemReducer())
+  @Inject lateinit var addItemPresenter: AddItemPresenter
+
+  override fun onAttach(context: Context?) {
+    application().applicationComponent.addItemSubcomponent()
+        .inject(this)
+    super.onAttach(context)
   }
 
   private val bottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
