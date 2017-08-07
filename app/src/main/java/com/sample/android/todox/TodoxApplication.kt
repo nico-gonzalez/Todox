@@ -1,17 +1,16 @@
 package com.sample.android.todox
 
 import android.app.Application
-import com.sample.android.todox.common.di.DependencyInjector
-import com.sample.android.todox.common.di.Injector
+import com.sample.android.todox.common.di.ApplicationComponent
+import com.sample.android.todox.common.di.ApplicationModule
+import com.sample.android.todox.common.di.DaggerApplicationComponent
+
 
 class TodoxApplication : Application() {
 
-  private var injector: Injector? = null
-
-  fun injector(): Injector? {
-    if (injector == null) {
-      injector = DependencyInjector(this)
-    }
-    return injector
+  val applicationComponent: ApplicationComponent by lazy {
+    DaggerApplicationComponent.builder()
+        .applicationModule(ApplicationModule(this))
+        .build()
   }
 }

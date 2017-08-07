@@ -9,12 +9,13 @@ import com.sample.android.todox.model.items.ItemModel
 import com.sample.android.todox.stores.Store
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class ItemsStore(val itemDao: ItemDao) : Store<List<Item>> {
+class ItemsStore @Inject constructor(private val itemDao: ItemDao) : Store<List<Item>> {
 
   override fun getState(): Flowable<List<Item>> = fetchItems()
 
-  override fun dispatch(event: UIEvent) = when (event) {
+  override fun dispatch(event: UIEvent): Flowable<out Any> = when (event) {
     is GetItemsUIEvent -> fetchItems()
     is DeleteItemUIEvent -> deleteItem(event.item)
     is AddItemUIEvent -> addItem(event.item)

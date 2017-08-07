@@ -9,9 +9,10 @@ import com.sample.android.todox.reducers.GetItemsReducer
 import com.sample.android.todox.results.DeleteItemResult
 import com.sample.android.todox.results.GetItemsResult
 import com.sample.android.todox.stores.items.Item
+import javax.inject.Inject
 
-class HomePresenter(val getItemsReducer: GetItemsReducer,
-    val deleteItemReducer: DeleteItemReducer) : Presenter<HomeView>() {
+class HomePresenter @Inject constructor(private val getItemsReducer: GetItemsReducer,
+    private val deleteItemReducer: DeleteItemReducer) : Presenter<HomeView>() {
 
   fun onGetItems() {
 
