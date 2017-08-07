@@ -1,11 +1,11 @@
 package com.sample.android.todox.additem
 
-import com.sample.android.todox.common.architecture.Presenter
+import com.sample.android.todox.common.arch.presentation.Presenter
 import com.sample.android.todox.common.ui.UIEvent.AddItemUIEvent
 import com.sample.android.todox.common.di.FragmentScope
-import com.sample.android.todox.reducers.AddItemReducer
-import com.sample.android.todox.reducers.Reducer
-import com.sample.android.todox.results.AddItemResult
+import com.sample.android.todox.common.arch.reducers.AddItemReducer
+import com.sample.android.todox.common.arch.reducers.Reducer
+import com.sample.android.todox.common.arch.results.AddItemResult
 import dagger.Binds
 import dagger.Module
 import dagger.Subcomponent

@@ -1,4 +1,4 @@
-package com.sample.android.todox.common.architecture
+package com.sample.android.todox.common.arch.presentation
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
