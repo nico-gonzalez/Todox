@@ -1,6 +1,6 @@
 package com.sample.android.todox.stores
 
-import com.sample.android.todox.common.UIEvent
+import com.sample.android.todox.common.ui.UIEvent
 import io.reactivex.Flowable
 
 interface Store<T> {

@@ -1,9 +1,9 @@
 package com.sample.android.todox.stores.items
 
-import com.sample.android.todox.common.UIEvent
-import com.sample.android.todox.common.UIEvent.AddItemUIEvent
-import com.sample.android.todox.common.UIEvent.DeleteItemUIEvent
-import com.sample.android.todox.common.UIEvent.GetItemsUIEvent
+import com.sample.android.todox.common.ui.UIEvent
+import com.sample.android.todox.common.ui.UIEvent.AddItemUIEvent
+import com.sample.android.todox.common.ui.UIEvent.DeleteItemUIEvent
+import com.sample.android.todox.common.ui.UIEvent.GetItemsUIEvent
 import com.sample.android.todox.model.items.ItemDao
 import com.sample.android.todox.model.items.ItemModel
 import com.sample.android.todox.stores.Store

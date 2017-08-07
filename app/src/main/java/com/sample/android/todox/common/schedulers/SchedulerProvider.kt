@@ -1,4 +1,4 @@
-package com.sample.android.todox.common
+package com.sample.android.todox.common.schedulers
 
 import io.reactivex.Scheduler
 

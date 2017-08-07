@@ -1,8 +1,8 @@
 package com.sample.android.todox.home
 
-import com.sample.android.todox.common.Presenter
-import com.sample.android.todox.common.UIEvent.DeleteItemUIEvent
-import com.sample.android.todox.common.UIEvent.GetItemsUIEvent
+import com.sample.android.todox.common.architecture.Presenter
+import com.sample.android.todox.common.ui.UIEvent.DeleteItemUIEvent
+import com.sample.android.todox.common.ui.UIEvent.GetItemsUIEvent
 import com.sample.android.todox.common.di.ActivityScope
 import com.sample.android.todox.reducers.DeleteItemReducer
 import com.sample.android.todox.reducers.GetItemsReducer

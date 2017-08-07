@@ -1,7 +1,7 @@
 package com.sample.android.todox.additem
 
-import com.sample.android.todox.common.Presenter
-import com.sample.android.todox.common.UIEvent.AddItemUIEvent
+import com.sample.android.todox.common.architecture.Presenter
+import com.sample.android.todox.common.ui.UIEvent.AddItemUIEvent
 import com.sample.android.todox.common.di.FragmentScope
 import com.sample.android.todox.reducers.AddItemReducer
 import com.sample.android.todox.reducers.Reducer

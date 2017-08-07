@@ -1,6 +1,6 @@
 package com.sample.android.todox.home
 
-import com.sample.android.todox.common.UIModel.GetItemsUIModel
+import com.sample.android.todox.common.ui.UIModel.GetItemsUIModel
 
 interface HomeView {
 
