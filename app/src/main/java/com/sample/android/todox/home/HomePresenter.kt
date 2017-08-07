@@ -1,14 +1,14 @@
 package com.sample.android.todox.home
 
-import com.sample.android.todox.common.architecture.Presenter
+import com.sample.android.todox.common.arch.presentation.Presenter
 import com.sample.android.todox.common.ui.UIEvent.DeleteItemUIEvent
 import com.sample.android.todox.common.ui.UIEvent.GetItemsUIEvent
 import com.sample.android.todox.common.ui.UIModel.GetItemsUIModel
-import com.sample.android.todox.reducers.DeleteItemReducer
-import com.sample.android.todox.reducers.GetItemsReducer
-import com.sample.android.todox.results.DeleteItemResult
-import com.sample.android.todox.results.GetItemsResult
-import com.sample.android.todox.stores.items.Item
+import com.sample.android.todox.common.arch.reducers.DeleteItemReducer
+import com.sample.android.todox.common.arch.reducers.GetItemsReducer
+import com.sample.android.todox.common.arch.results.DeleteItemResult
+import com.sample.android.todox.common.arch.results.GetItemsResult
+import com.sample.android.todox.common.arch.stores.items.Item
 import javax.inject.Inject
 
 class HomePresenter @Inject constructor(private val getItemsReducer: GetItemsReducer,

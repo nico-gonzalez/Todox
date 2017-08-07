@@ -1,10 +1,10 @@
 package com.sample.android.todox.additem
 
-import com.sample.android.todox.common.architecture.Presenter
+import com.sample.android.todox.common.arch.presentation.Presenter
 import com.sample.android.todox.common.ui.UIEvent.AddItemUIEvent
-import com.sample.android.todox.reducers.AddItemReducer
-import com.sample.android.todox.results.AddItemResult
-import com.sample.android.todox.stores.items.Item
+import com.sample.android.todox.common.arch.reducers.AddItemReducer
+import com.sample.android.todox.common.arch.results.AddItemResult
+import com.sample.android.todox.common.arch.stores.items.Item
 import javax.inject.Inject
 
 class AddItemPresenter @Inject constructor(

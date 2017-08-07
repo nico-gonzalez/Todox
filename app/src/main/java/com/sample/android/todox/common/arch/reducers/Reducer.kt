@@ -1,4 +1,4 @@
-package com.sample.android.todox.reducers
+package com.sample.android.todox.common.arch.reducers
 
 import io.reactivex.Flowable
 

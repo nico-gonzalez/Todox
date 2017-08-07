@@ -9,7 +9,7 @@ import com.sample.android.todox.R
 import com.sample.android.todox.additem.AddItemFragment
 import com.sample.android.todox.common.ui.UIModel.GetItemsUIModel
 import com.sample.android.todox.common.application
-import com.sample.android.todox.stores.items.Item
+import com.sample.android.todox.common.arch.stores.items.Item
 import kotlinx.android.synthetic.main.activity_home.addItemBtn
 import kotlinx.android.synthetic.main.activity_home.itemsRV
 import kotlinx.android.synthetic.main.activity_home.progressBar

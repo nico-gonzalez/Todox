@@ -1,4 +1,4 @@
-package com.sample.android.todox
+package com.sample.android.todox.common
 
 import android.app.Application
 import com.sample.android.todox.common.di.ApplicationComponent

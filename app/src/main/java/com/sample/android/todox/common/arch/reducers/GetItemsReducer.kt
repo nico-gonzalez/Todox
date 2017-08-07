@@ -1,9 +1,9 @@
-package com.sample.android.todox.reducers
+package com.sample.android.todox.common.arch.reducers
 
 import com.sample.android.todox.common.schedulers.SchedulerProvider
 import com.sample.android.todox.common.ui.UIEvent.GetItemsUIEvent
-import com.sample.android.todox.results.GetItemsResult
-import com.sample.android.todox.stores.items.ItemsStore
+import com.sample.android.todox.common.arch.results.GetItemsResult
+import com.sample.android.todox.common.arch.stores.items.ItemsStore
 import io.reactivex.Flowable
 import javax.inject.Inject
 

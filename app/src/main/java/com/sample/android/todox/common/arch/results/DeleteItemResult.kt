@@ -1,4 +1,4 @@
-package com.sample.android.todox.results
+package com.sample.android.todox.common.arch.results
 
 
 data class DeleteItemResult(val inProgress: Boolean = false,

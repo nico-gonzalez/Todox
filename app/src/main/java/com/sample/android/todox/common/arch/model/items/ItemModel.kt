@@ -1,4 +1,4 @@
-package com.sample.android.todox.model.items
+package com.sample.android.todox.common.arch.model.items
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

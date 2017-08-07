@@ -1,4 +1,4 @@
-package com.sample.android.todox.stores
+package com.sample.android.todox.common.arch.stores
 
 import com.sample.android.todox.common.ui.UIEvent
 import io.reactivex.Flowable

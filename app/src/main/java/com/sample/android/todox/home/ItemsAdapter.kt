@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.sample.android.todox.R
-import com.sample.android.todox.stores.items.Item
+import com.sample.android.todox.common.arch.stores.items.Item
 
 private class ItemViewHolder(itemView: View,
     val clickListener: ItemsAdapter.OnItemClicked) : RecyclerView.ViewHolder(itemView) {

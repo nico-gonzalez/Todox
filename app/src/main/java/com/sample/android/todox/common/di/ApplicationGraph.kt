@@ -6,11 +6,11 @@ import com.sample.android.todox.additem.AddItemSubcomponent
 import com.sample.android.todox.common.schedulers.RxJavaSchedulerProvider
 import com.sample.android.todox.common.schedulers.SchedulerProvider
 import com.sample.android.todox.home.HomeSubcomponent
-import com.sample.android.todox.model.db.Database
-import com.sample.android.todox.model.items.ItemDao
-import com.sample.android.todox.stores.Store
-import com.sample.android.todox.stores.items.Item
-import com.sample.android.todox.stores.items.ItemsStore
+import com.sample.android.todox.common.arch.model.db.Database
+import com.sample.android.todox.common.arch.model.items.ItemDao
+import com.sample.android.todox.common.arch.stores.Store
+import com.sample.android.todox.common.arch.stores.items.Item
+import com.sample.android.todox.common.arch.stores.items.ItemsStore
 import dagger.Component
 import dagger.Module
 import dagger.Provides

@@ -1,12 +1,12 @@
-package com.sample.android.todox.stores.items
+package com.sample.android.todox.common.arch.stores.items
 
 import com.sample.android.todox.common.ui.UIEvent
 import com.sample.android.todox.common.ui.UIEvent.AddItemUIEvent
 import com.sample.android.todox.common.ui.UIEvent.DeleteItemUIEvent
 import com.sample.android.todox.common.ui.UIEvent.GetItemsUIEvent
-import com.sample.android.todox.model.items.ItemDao
-import com.sample.android.todox.model.items.ItemModel
-import com.sample.android.todox.stores.Store
+import com.sample.android.todox.common.arch.model.items.ItemDao
+import com.sample.android.todox.common.arch.model.items.ItemModel
+import com.sample.android.todox.common.arch.stores.Store
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import javax.inject.Inject
