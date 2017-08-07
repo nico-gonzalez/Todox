@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.sample.android.todox.R
 import com.sample.android.todox.additem.AddItemFragment
-import com.sample.android.todox.common.UIModel.GetItemsUIModel
+import com.sample.android.todox.common.ui.UIModel.GetItemsUIModel
 import com.sample.android.todox.common.application
 import com.sample.android.todox.stores.items.Item
 import kotlinx.android.synthetic.main.activity_home.addItemBtn

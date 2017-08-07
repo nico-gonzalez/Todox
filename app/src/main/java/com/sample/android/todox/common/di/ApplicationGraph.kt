@@ -3,8 +3,8 @@ package com.sample.android.todox.common.di
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.sample.android.todox.additem.AddItemSubcomponent
-import com.sample.android.todox.common.RxJavaSchedulerProvider
-import com.sample.android.todox.common.SchedulerProvider
+import com.sample.android.todox.common.schedulers.RxJavaSchedulerProvider
+import com.sample.android.todox.common.schedulers.SchedulerProvider
 import com.sample.android.todox.home.HomeSubcomponent
 import com.sample.android.todox.model.db.Database
 import com.sample.android.todox.model.items.ItemDao
