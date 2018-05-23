@@ -7,27 +7,26 @@ import android.view.View
 import android.widget.Toast
 import com.sample.android.todox.R
 import com.sample.android.todox.additem.AddItemFragment
-import com.sample.android.todox.common.ui.UIModel.GetItemsUIModel
 import com.sample.android.todox.common.application
 import com.sample.android.todox.common.arch.stores.items.Item
+import com.sample.android.todox.common.ui.UIModel.GetItemsUIModel
 import kotlinx.android.synthetic.main.activity_home.addItemBtn
 import kotlinx.android.synthetic.main.activity_home.itemsRV
 import kotlinx.android.synthetic.main.activity_home.progressBar
 import javax.inject.Inject
 
-
 class HomeActivity : AppCompatActivity(), HomeView, ItemsAdapter.OnItemClicked {
 
-  @Inject lateinit var homePresenter: HomePresenter
+  @Inject
+  lateinit var homePresenter: HomePresenter
 
-  val itemsAdapter by lazy {
+  private val itemsAdapter by lazy {
     ItemsAdapter(arrayListOf(), this)
   }
 
-  val layoutManager by lazy {
+  private val layoutManager by lazy {
     LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
   }
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     application().applicationComponent
@@ -53,9 +52,11 @@ class HomeActivity : AppCompatActivity(), HomeView, ItemsAdapter.OnItemClicked {
   }
 
   private fun setupRecyclerView() {
-    itemsRV.adapter = itemsAdapter
-    itemsRV.layoutManager = layoutManager
-    itemsRV.setHasFixedSize(true)
+    itemsRV.apply {
+      adapter = itemsAdapter
+      layoutManager = this@HomeActivity.layoutManager
+      setHasFixedSize(true)
+    }
   }
 
   override fun showProgress() {
