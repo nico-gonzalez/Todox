@@ -1,10 +1,11 @@
 package com.sample.android.todox.additem
 
+import com.sample.android.todox.common.addTo
 import com.sample.android.todox.common.arch.presentation.Presenter
-import com.sample.android.todox.common.ui.UIEvent.AddItemUIEvent
 import com.sample.android.todox.common.arch.reducers.AddItemReducer
 import com.sample.android.todox.common.arch.results.AddItemResult
 import com.sample.android.todox.common.arch.stores.items.Item
+import com.sample.android.todox.common.ui.UIEvent.AddItemUIEvent
 import javax.inject.Inject
 
 class AddItemPresenter @Inject constructor(
@@ -20,9 +21,10 @@ class AddItemPresenter @Inject constructor(
         }
       }
     }
-    addDisposable(
-        addItemReducer.reduce(AddItemUIEvent(Item(title = title, description = description)))
-            .doOnError { getView()?.showErrorMessage(it.message) }
-            .subscribe(::handleAddItemResult))
+    addItemReducer.reduce(AddItemUIEvent(Item(title = title, description = description)))
+        .doOnError { getView()?.showErrorMessage(it.message) }
+        .doOnNext(::handleAddItemResult)
+        .subscribe()
+        .addTo(disposables)
   }
 }

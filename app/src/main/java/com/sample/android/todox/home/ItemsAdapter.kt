@@ -29,7 +29,7 @@ private class ItemViewHolder(itemView: View,
   }
 }
 
-class ItemsAdapter(val items: MutableList<Item>, val clickListener: OnItemClicked)
+class ItemsAdapter(val items: MutableList<Item>, private val clickListener: OnItemClicked)
   : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   interface OnItemClicked {
@@ -40,15 +40,15 @@ class ItemsAdapter(val items: MutableList<Item>, val clickListener: OnItemClicke
     return items.size
   }
 
-  override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+  override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     val item = items[position]
     when (holder) {
       is ItemViewHolder -> holder.bind(item)
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-    val view = LayoutInflater.from(parent?.context)
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    val view = LayoutInflater.from(parent.context)
         .inflate(R.layout.items_list_item, parent, false)
     return ItemViewHolder(view, clickListener)
   }
@@ -61,16 +61,14 @@ class ItemsAdapter(val items: MutableList<Item>, val clickListener: OnItemClicke
   }
 }
 
-class DiffCallback(val oldItems: MutableList<Item>, val newItems: List<Item>) : Callback() {
+class DiffCallback(private val oldItems: MutableList<Item>,
+    private val newItems: List<Item>) : Callback() {
   override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
       oldItems[oldItemPosition].id == newItems[newItemPosition].id
 
   override fun getOldListSize(): Int = oldItems.size
 
   override fun getNewListSize(): Int = newItems.size
-
-  override fun getChangePayload(oldItemPosition: Int,
-      newItemPosition: Int): Any? = super.getChangePayload(oldItemPosition, newItemPosition)
 
   override fun areContentsTheSame(oldItemPosition: Int,
       newItemPosition: Int): Boolean = oldItems[oldItemPosition] == newItems[newItemPosition]

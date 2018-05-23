@@ -16,7 +16,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Singleton
 @Module
 class ApplicationModule(private val context: Context) {
 
@@ -46,7 +45,7 @@ class ApplicationModule(private val context: Context) {
 }
 
 @Singleton
-@Component(modules = arrayOf(ApplicationModule::class))
+@Component(modules = [ApplicationModule::class])
 interface ApplicationComponent {
 
   fun context(): Context

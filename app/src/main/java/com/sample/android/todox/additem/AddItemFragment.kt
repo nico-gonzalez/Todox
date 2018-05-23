@@ -16,12 +16,18 @@ import javax.inject.Inject
 
 class AddItemFragment : BottomSheetDialogFragment(), AddItemView {
 
-  @Inject lateinit var addItemPresenter: AddItemPresenter
+  @Inject
+  lateinit var addItemPresenter: AddItemPresenter
 
   override fun onAttach(context: Context?) {
     application().applicationComponent.addItemSubcomponent()
         .inject(this)
     super.onAttach(context)
+  }
+
+  override fun onDetach() {
+    addItemPresenter.detachView()
+    super.onDetach()
   }
 
   private val bottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
